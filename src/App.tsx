@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+import Home from "./pages/Home";
+import Resume from "./pages/Resume";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false,
+    },
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <QueryClientProvider client={queryClient}>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/resume/:nickname" element={<Resume />} />
+          <Route path="*" element={<Navigate to="/home" />} />
+        </Routes>
+      </QueryClientProvider>
+    </main>
   );
 }
 
