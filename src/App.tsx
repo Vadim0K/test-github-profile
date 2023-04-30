@@ -29,6 +29,7 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <main>
+      {app.name}
       <QueryClientProvider client={queryClient}>
         <Routes>
           <Route path="/home" element={<Home />} />
