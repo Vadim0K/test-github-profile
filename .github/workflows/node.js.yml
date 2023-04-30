@@ -1,4 +1,4 @@
-name: Firebase CI
+name: Firebase Deploy
 
 on:
   workflow_dispatch:
@@ -6,8 +6,6 @@ on:
       name:
         description: "Test"
   push:
-    branches: [ "**" ]
-  pull_request:
     branches: [ "**" ]
 
 jobs:
@@ -39,7 +37,7 @@ jobs:
           path: build
 
   deployToProd:
-    name: Deploy
+    name: Deploy To Production
     needs: build
     runs-on: ubuntu-latest
     environment:
@@ -60,7 +58,7 @@ jobs:
           FIREBASE_TOKEN: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
 
   deployToDev:
-    name: Deploy
+    name: Deploy To Dev
     needs: build
     runs-on: ubuntu-latest
     environment:
