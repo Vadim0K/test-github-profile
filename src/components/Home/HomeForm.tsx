@@ -26,6 +26,7 @@ const HomeForm = () => {
 
   return (
     <div className={styles.container}>
+      <span className={styles.title}>Dev test</span>
       <span className={styles.title}>GitHub user profiler</span>
       <span className={styles.desc}>
         Take brief information about GitHub user and his projects

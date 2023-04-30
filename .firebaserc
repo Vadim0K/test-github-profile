@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "vdmk-github-actions"
-  }
+  },
+  "targets": {
+    "vdmk-github-actions": {
+      "hosting": {
+        "dev": [
+          "dev-vdmk-github-actions"
+        ],
+        "prod": [
+          "vdmk-github-actions"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
