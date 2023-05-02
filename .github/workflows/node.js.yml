@@ -9,14 +9,16 @@ on:
     branches: [ "**" ]
 
 jobs:
-  build:
-
+  buildDev:
+    name: Dev Build
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         node-version: [18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    environment: testGitHubProfile.dev
 
     steps:
       - uses: actions/checkout@v3
@@ -28,6 +30,37 @@ jobs:
 
       - name: npm install
         run: |
+          echo "Test variable : ${{ vars.TEST_VARIABLE }}"
+          npm install
+          npm run build
+      - name: Archive Build
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build
+
+  buildProd:
+    name: Prod Build
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    environment: testGitHubProfile.prod
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: npm install
+        run: |
+          echo "Test variable : ${{ vars.TEST_VARIABLE }}"
           npm install
           npm run build
       - name: Archive Build
@@ -38,7 +71,7 @@ jobs:
 
   deployToProd:
     name: Deploy To Production
-    needs: build
+    needs: buildProd
     runs-on: ubuntu-latest
     environment:
       name: testGitHubProfile.prod
@@ -59,7 +92,7 @@ jobs:
 
   deployToDev:
     name: Deploy To Dev
-    needs: build
+    needs: buildDev
     runs-on: ubuntu-latest
     environment:
       name: testGitHubProfile.dev
