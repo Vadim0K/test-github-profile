@@ -6,16 +6,6 @@ on:
       environment:
         type: environment
         description: Select the environment
-      boolean:
-        type: boolean
-        description: True or False
-      choice:
-        type: choice
-        description: Make a choice
-        options:
-          - foo
-          - bar
-          - baz
   push:
     branches: [ "**" ]
 
@@ -28,6 +18,8 @@ jobs:
       matrix:
         node-version: [ 18.x ]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    environment: ${{ inputs.environment }}
 
     steps:
       - uses: actions/checkout@v3
@@ -59,9 +51,9 @@ jobs:
         with:
           name: build
           path: build
-      - name: Deploy To Firebase
+      - name: Deploy To Firebase "${{ vars.NODE_NAME }}"
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting:prod
+          args: deploy --only hosting:${{ vars.NODE_ENV }}
         env:
           FIREBASE_TOKEN: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
