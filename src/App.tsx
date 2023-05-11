@@ -30,7 +30,7 @@ function App() {
   return (
     <main>
       {app.name}
-      Hello 3
+      Hello 11.05
       <QueryClientProvider client={queryClient}>
         <Routes>
           <Route path="/home" element={<Home />} />
