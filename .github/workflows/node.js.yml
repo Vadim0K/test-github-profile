@@ -43,6 +43,7 @@ jobs:
           MSG_MINIMAL: commit,actions url
           SLACK_TITLE: Deploy information (TEST IGNORE)
           SLACK_MESSAGE: ${{ steps.slack-message.outputs.slack-message }}
+          SLACK_FOOTER: @devfe @Vadim
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
