@@ -26,7 +26,7 @@ jobs:
         id: slack-message
         run: |
             slack_message="
-            *Mention:* <!subteam^S02RAF4198U> <@D017C98TRM0>
+            *Mention:* <@D017C98TRM0>
             *Branch:* ${{ github.ref_name }}
             *Environment:* ${{ vars.NODE_ENV }}"
 
