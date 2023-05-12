@@ -41,9 +41,9 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_COLOR: ${{ job.status }}
           MSG_MINIMAL: commit,actions url
-          SLACK_TITLE: ""
+          SLACK_TITLE: " "
           SLACK_MESSAGE: ${{ steps.slack-message.outputs.slack-message }}
-          SLACK_FOOTER: "<!subteam^S02RXU35NGG>"
+#          SLACK_FOOTER: "<!subteam^S02RXU35NGG>"
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
