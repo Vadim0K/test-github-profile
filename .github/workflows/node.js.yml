@@ -22,6 +22,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Slack Deploy Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_USERNAME: Deploy Status Bot
+          SLACK_CHANNEL: product-deployments
+          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+          SLACK_TITLE: Deploy notify
+          SLACK_MESSAGE: 'Test deploy message IGNORE ME :rocket:'
+          SLACK_ICON: https://github.com/rtCamp.png?size=48
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
