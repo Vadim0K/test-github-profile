@@ -22,6 +22,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: SlackMessage
+        id: slackMessage
+        run: |
+            slack_message="*  First sentence:* 1
+            *  Second:* 2
+            *  Third:* 3"
+
+            echo 'slack-message<<EOF' >> $GITHUB_OUTPUT
+            echo "$slack_message" >> $GITHUB_OUTPUT
+            echo 'EOF' >> $GITHUB_OUTPUT
       - name: Slack Deploy Notification
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -32,13 +42,7 @@ jobs:
           SLACK_TITLE: Deploy notify
           MSG_MINIMAL: commit, ref
 #          SLACK_MESSAGE: 'Test deploy message IGNORE ME :rocket:'
-          SLACK_MESSAGE: {
-            "type": "section",
-            "text": {
-              "type": "mrkdwn",
-              "text": "Test deploy message IGNORE ME :rocket: rich test"
-            }
-          }
+          SLACK_MESSAGE: ${{ steps.summary.outputs.slack-message }}
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
