@@ -26,7 +26,7 @@ jobs:
         id: slack-message
         run: |
             slack_message="
-            *Mention:* @Vadim
+            *Mention:* @devfe
             *Branch:* ${{ github.ref_name }}
             *Environment:* ${{ vars.NODE_ENV }}"
 
@@ -40,7 +40,7 @@ jobs:
           SLACK_USERNAME: Deploy Status Bot
           SLACK_CHANNEL: product-deployments
           SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
-          MSG_MINIMAL: commit,ref,actions url
+          MSG_MINIMAL: commit,actions url
           SLACK_TITLE: Deploy information (TEST IGNORE)
           SLACK_MESSAGE: ${{ steps.slack-message.outputs.slack-message }}
       - name: Use Node.js ${{ matrix.node-version }}
