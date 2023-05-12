@@ -22,10 +22,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Slack Message
+      - name: Slack Message Preparation
         id: slack-message
         run: |
             slack_message="
+
             *:branch: Branch:* _*${{ github.ref_name }}*_
             *:globe_with_meridians: Environment:* <http://www.example.com|${{ vars.NODE_ENV }}>"
 
@@ -36,13 +37,11 @@ jobs:
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_USERNAME: Deploy Status Bot
-          SLACK_CHANNEL: product-deployments
-          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+          SLACK_COLOR: ${{ job.status }}
           MSG_MINIMAL: commit,actions url
-          SLACK_TITLE: "Successful deployment :rocket: (TEST IGNORE)"
+          SLACK_TITLE: "Successful deployment :rocket: (TEST)"
           SLACK_MESSAGE: ${{ steps.slack-message.outputs.slack-message }}
-          SLACK_FOOTER: "<@U016XGV1SMV>"
+          SLACK_FOOTER: "<!subteam^S02RXU35NGG>"
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
