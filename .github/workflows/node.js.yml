@@ -27,7 +27,7 @@ jobs:
         run: |
             slack_message="
             *Mention:* <@U016XGV1SMV>
-            *Branch:* `${{ github.ref_name }}`
+            *Branch:* <`${{ github.ref_name }}`>
             *Environment:* ${{ vars.NODE_ENV }}"
 
             echo 'slack-message<<EOF' >> $GITHUB_OUTPUT
@@ -43,7 +43,7 @@ jobs:
           MSG_MINIMAL: commit,actions url
           SLACK_TITLE: Deploy information (TEST IGNORE)
           SLACK_MESSAGE: ${{ steps.slack-message.outputs.slack-message }}
-          SLACK_FOOTER: "@devfe"
+          SLACK_FOOTER: "<@U016XGV1SMV>"
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
