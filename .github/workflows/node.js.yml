@@ -26,7 +26,8 @@ jobs:
         id: slack-message
         run: |
             slack_message="
-          ㅤㅤㅤ
+            Test
+            
             *:branch: Branch:* _*${{ github.ref_name }}*_
             *:globe_with_meridians: Environment:* <http://www.example.com|${{ vars.NODE_ENV }}>"
 
